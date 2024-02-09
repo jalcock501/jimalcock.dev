@@ -18,6 +18,7 @@ const help = [
     "'skills' - Print a list of my technical skills",
     "'experience' - Print a list of my work experience",
     "'links' - Get a list of my links",
+    "'projects' - Get a list of my public projects",
     "'help' - Print this list of commands",
     "'clear' - Clear the terminal",
   ];
@@ -33,5 +34,12 @@ const help = [
     },
   ];
 
+  const projects = [
+    {
+      name: "Client-Side Encrypted Datastore",
+      url: "https://encrypt.jimalcock.com",
+    }
+  ]
 
-export { welcomeMessage, help, links };
+
+export { welcomeMessage, help, links, projects };

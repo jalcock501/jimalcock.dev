@@ -4,8 +4,8 @@ import Terminal , {
     TerminalInput,
     TerminalOutput,
     } from 'react-terminal-ui';
-import { welcomeMessage, help, links } from './Constants';
-import { title, contact, summary, skills, experience, lifestyle, cv } from './CV';
+import { welcomeMessage, help, links, projects } from './Constants';
+import { contact, summary, skills, experience, lifestyle, cv } from './CV';
 import { DownloadCV } from './DownloadCV';
 
 
@@ -83,6 +83,18 @@ const TerminalController = (props = {}) => {
       case 'cv --download':
         DownloadCV();
         break;
+      case 'projects':
+        projects.forEach(function (project, index) {
+          ld.push(
+            <TerminalOutput>
+              {project.name}:{" "}
+              <a href={project.url} target="_blank">
+                {project.url}
+              </a>
+            </TerminalOutput>
+          );
+        });
+        break;  
       case 'links':
         links.forEach(function (link, index) {
           ld.push(
