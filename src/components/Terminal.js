@@ -1,28 +1,28 @@
-import { useState } from 'react';
-import Terminal , {
-    ColorMode,
-    TerminalInput,
-    TerminalOutput,
-    } from 'react-terminal-ui';
-import { welcomeMessage, help, links, projects } from './Constants';
-import { contact, summary, skills, experience, lifestyle, cv } from './CV';
-import { DownloadCV } from './DownloadCV';
-
+import { useState } from "react";
+import Terminal, {
+  ColorMode,
+  TerminalInput,
+  TerminalOutput,
+} from "react-terminal-ui";
+import { welcomeMessage, help, links, projects } from "./Constants";
+import { contact, summary, skills, experience, lifestyle, cv } from "./CV";
+import { DownloadCV } from "./DownloadCV";
 
 const TerminalController = (props = {}) => {
-
   let terminalWelcomeMessage = welcomeMessage.concat(help);
-  console.log(terminalWelcomeMessage)
+  console.log(terminalWelcomeMessage);
   let terminalWelcomeMessageData = [];
   for (let line = 0; line < terminalWelcomeMessage.length; line++) {
     terminalWelcomeMessageData.push(
       <TerminalOutput key={line}>{terminalWelcomeMessage[line]}</TerminalOutput>
     );
   }
-  
-  const [terminalLineData, setTerminalLineData] = useState(terminalWelcomeMessageData);
 
-  const [terminalHeight, setTerminalHeight] = useState('60vh');
+  const [terminalLineData, setTerminalLineData] = useState(
+    terminalWelcomeMessageData
+  );
+
+  const [terminalHeight, setTerminalHeight] = useState("60vh");
 
   // set color mode dark as initial state
   const [colorMode, setColorMode] = useState(ColorMode.Dark);
@@ -33,7 +33,7 @@ const TerminalController = (props = {}) => {
     setColorMode(
       colorMode === ColorMode.Light ? ColorMode.Dark : ColorMode.Light
     );
-  };
+  }
 
   const btnClasses = ["btn"];
   if (colorMode === ColorMode.Light) {
@@ -44,46 +44,46 @@ const TerminalController = (props = {}) => {
 
   function toggleTerminalHeight() {
     setTerminalHeight(
-    terminalHeight === "60vh" || terminalHeight === "0px" ? "80vh" : "60vh"
+      terminalHeight === "60vh" || terminalHeight === "0px" ? "80vh" : "60vh"
     );
-  };
+  }
 
   // handle input
   function onInput(input) {
     const Output = (item) => {
-      ld = []
+      ld = [];
       setTerminalLineData(ld);
       for (let line = 0; line < item.length; line++) {
         ld.push(<TerminalOutput>{item[line]}</TerminalOutput>);
       }
-    }
+    };
 
     let ld = [...terminalLineData];
     ld.push(<TerminalInput>{input}</TerminalInput>);
 
     switch (input.toLocaleLowerCase().trim()) {
-      case 'cv':
+      case "cv":
         Output(cv);
         break;
-      case 'lifestyle':
+      case "lifestyle":
         Output(lifestyle);
         break;
-      case 'contact':
+      case "contact":
         Output(contact);
         break;
-      case 'summary':
+      case "summary":
         Output(summary);
         break;
-      case 'skills':
+      case "skills":
         Output(skills);
         break;
-      case 'experience':
+      case "experience":
         Output(experience);
         break;
-      case 'cv --download':
+      case "cv --download":
         DownloadCV();
         break;
-      case 'projects':
+      case "projects":
         projects.forEach(function (project, index) {
           ld.push(
             <TerminalOutput>
@@ -94,8 +94,8 @@ const TerminalController = (props = {}) => {
             </TerminalOutput>
           );
         });
-        break;  
-      case 'links':
+        break;
+      case "links":
         links.forEach(function (link, index) {
           ld.push(
             <TerminalOutput>
@@ -107,27 +107,34 @@ const TerminalController = (props = {}) => {
           );
         });
         break;
-      case 'help':
+      case "help":
         Output(help);
         break;
-      case 'clear':
+      case "clear":
         ld = [];
         break;
       default:
         ld.push(<TerminalOutput>Unrecognized command</TerminalOutput>);
         break;
-      }
-  
+    }
+
     // set line data
     setTerminalLineData(ld);
-  };
+  }
 
   // Yellow button click
   const yellowBtnClick = () => {
-      // toggle terminal height
-      if (terminalHeight === "0px") { setTerminalHeight("60vh"); }
-      else{ setTerminalHeight("0px"); }
-    };
+    // toggle terminal height
+    if (terminalHeight === "0px") {
+      setTerminalHeight("60vh");
+    } else {
+      setTerminalHeight("0px");
+    }
+  };
+
+  const redBtnClick = () => {
+    window.location.href = "https://www.linkedin.com/in/james-alcock-424ba560/";
+  };
 
   const greenBtnClick = () => {
     // toggle terminal height
@@ -144,26 +151,27 @@ const TerminalController = (props = {}) => {
     }
   };
 
-    // Terminal has 100% width by default so it should usually be wrapped in a container div
-    return (
-      <div className="container" id="terminal-container">
-        <div className="d-flex flex-row-reverse p-2">
-          <button className={btnClasses.join(" ")} onClick={toggleColorMode}>
-            Enable {colorMode === ColorMode.Light ? "Dark" : "Light"} Mode
-          </button>
+  // Terminal has 100% width by default so it should usually be wrapped in a container div
+  return (
+    <div className="container" id="terminal-container">
+      <div className="d-flex flex-row-reverse p-2">
+        <button className={btnClasses.join(" ")} onClick={toggleColorMode}>
+          Enable {colorMode === ColorMode.Light ? "Dark" : "Light"} Mode
+        </button>
       </div>
-        <Terminal 
-          height={terminalHeight} 
-          colorMode={ colorMode }  
-          onInput = { onInput }
-          prompt="[Jim's Terminal] $"
-          yellowBtnCallback={ yellowBtnClick }
-          greenBtnCallback={ greenBtnClick }
-        >
-          { terminalLineData }
-        </Terminal>
-      </div>
-    )
+      <Terminal
+        height={terminalHeight}
+        colorMode={colorMode}
+        onInput={onInput}
+        prompt="[Jim's Terminal] $"
+        redBtnCallback={redBtnClick}
+        yellowBtnCallback={yellowBtnClick}
+        greenBtnCallback={greenBtnClick}
+      >
+        {terminalLineData}
+      </Terminal>
+    </div>
+  );
 };
 
 export default TerminalController;
