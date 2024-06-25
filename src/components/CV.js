@@ -37,7 +37,7 @@ export const experience =[
     "    Why: I am passionate about the 'Tech For Good' space and want to make a difference",
     "    How: -",
     "      - Contracted to the NHS as a Senior Software Engineer to work on List-Reconciliation",
-    "        to help with how the NHS process data betweenm different systems",
+    "        to help with how the NHS process data between different systems",
     "      - Building an internal AI platform using GPT 3.5 in React, FastAPI",
     "        to assist with tendering for contracts and internal policy queries",
     "      - Contracted to the NHS as a Tech Lead to work on a greenfield project",
